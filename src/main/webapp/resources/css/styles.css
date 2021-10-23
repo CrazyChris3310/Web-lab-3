@@ -1,0 +1,130 @@
+header {
+  background-color: #300430;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100%;
+  color: white;
+  z-index: 1000;
+}
+
+.content, .header_content {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.header_content div {
+  padding: 5px 5px;
+  display: inline-block;
+  font-size: 23px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: whitesmoke;
+}
+
+.main-container {
+  background-color: #fff;
+  width: 80%;
+  margin: 70px auto auto;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.185);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  line-height: 1.5;
+  margin: 5%;
+}
+.container svg {
+  padding: 10px;
+  border: 5px #6589FF solid;
+  border-radius: 10px;
+}
+.container-text {
+  padding: 25px 40px 25px 0;
+}
+.container-text .input,
+.container-text input[type="submit"] {
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+.container-text .input {
+  text-align: right;
+  border: 1px solid #ced4da;
+  margin: 5px 0 10px;
+  font-size: 1rem;
+  color: #656880;
+}
+.container-text input[type="submit"] {
+  background-image: linear-gradient(to right, #89CAFF, #6589FF);
+  display: block;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px #89caff94;
+  transition: box-shadow 0.3s ease-in-out;
+}
+.container-text input[type="submit"]:hover {
+  box-shadow: none;
+}
+.container-text #x-input {
+  display: block;
+  text-align: center;
+  margin: 5px 0 0;
+  color: #BABDCB;
+  font-size: 12px;
+}
+
+#results-table-area {
+  overflow: auto;
+  width: 90%;
+  margin: auto;
+}
+
+.results {
+  width: 100%;
+  padding: 20px 0;
+  color: white;
+}
+.results th {
+  background-color: #7adab2;
+  letter-spacing: 1px;
+  text-shadow: grey 1px 2px;
+  padding: 10px 15px;
+}
+.results th:first-child {
+  border-top-left-radius: 15px;
+}
+.results th:last-child {
+  border-top-right-radius: 15px;
+}
+.results td {
+  padding: 10px 15px;
+  background-color: yellow;
+  color: #300430;
+}
+.results tr:last-child td:first-child {
+  border-bottom-left-radius: 15px;
+}
+.results tr:last-child td:last-child {
+  border-bottom-right-radius: 15px;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: danil
+  Date: 16.10.2021
+  Time: 20:14
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>First HelloWorld Example</title>
+</h:head>
+
+<h:body>
+    <h1>This is home page</h1>
+    <h:form>
+        <h:outputText value="Enter name: "/>
+        <h:inputText id="name-input" value="#{testBean.name}" required="true" requiredMessage="Need name to be entered"/>
+        <br/>
+        <h:outputText value="Enter surname: "/>
+        <h:inputText id="surname-input" value="#{testBean.surname}"/>
+        <br/>
+        <h:message for="name-input">
+            <br/>
+        </h:message>
+        <h:commandButton action="/facelets/header" value="Submit"/>
+
+    </h:form>
+    <h:form>
+        <h:commandButton action="/facelets/page1" value="Go to page 1"/>
+    </h:form>
+</h:body>
+
+</html>

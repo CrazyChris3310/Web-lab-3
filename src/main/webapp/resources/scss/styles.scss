@@ -1,0 +1,152 @@
+
+$primary-color: #fff;
+$cursor: pointer;
+
+$green: rgb(122, 218, 178);
+$yellow: yellow;
+$dark-violet: rgb(48, 4, 48);
+
+header {
+  background-color: $dark-violet;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100%;
+  color: white;
+}
+
+.content {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header_content {
+  @extend .content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  div {
+      padding: 5px 5px;
+      display: inline-block;
+      font-size: 23px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: whitesmoke;
+}
+
+.main-container {
+  background-color: $primary-color;
+  width: 80%;
+  margin: auto;
+  margin-top: 70px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.185);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  line-height: 1.5;
+  margin: 5%;
+
+  svg {
+    padding: 10px;
+    border: 5px #6589FF solid;
+    border-radius: 10px;
+  }
+
+  &-text {
+    padding: 25px 40px 25px 0px;
+
+    input,
+    [type="submit"] {
+      width: 100%;
+      border: none;
+      padding: 14px;
+      border-radius: 3px;
+    }
+
+    input {
+      border: 2px solid #DADDEC;
+      margin: 5px 0 10px;
+      font-size: 1rem;
+      color: #656880;
+    }
+
+    input[type="submit"] {
+      background-image: linear-gradient(to right, #89CAFF, #6589FF);
+      display: block;
+      color: $primary-color;
+      font-size: 1rem;
+      cursor: $cursor;
+      box-shadow: 0 5px 20px #89caff94;
+      transition: box-shadow .3s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+      box-shadow: none;
+    }
+
+    span {
+      display: block;
+      text-align: center;
+      margin: 20px 0 0;
+      color: #BABDCB;
+      font-size: 12px;
+    }
+  }
+}
+
+#results-table-area {
+  overflow: auto;
+  width: 90%;
+  margin: auto;
+}
+
+
+.results {
+  width: 100%;
+  padding: 20px 0;
+  color: white;
+
+  th {
+      background-color: $green;
+      letter-spacing: 1px;
+      text-shadow: grey 1px 2px;
+      padding: 10px 15px;
+      &:first-child {
+          border-top-left-radius: 15px;
+      }
+      &:last-child {
+          border-top-right-radius: 15px;
+      }
+  }
+
+  td {
+      padding: 10px 15px;
+      background-color: $yellow;
+      color: $dark-violet;
+  }
+
+  tr:last-child {
+      td:first-child {
+          border-bottom-left-radius: 15px;
+      }
+      td:last-child {
+          border-bottom-right-radius: 15px;
+      }
+  }
+}
