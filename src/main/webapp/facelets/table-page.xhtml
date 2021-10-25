@@ -19,6 +19,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
     <h:outputStylesheet name="styles.css" library="css"/>
+    <h:outputScript library="scripts" name="jquery-3.6.0.min.js" target="body"/>
+    <h:outputScript library="scripts" name="ImageClickListener.js" target="body"/>
 </h:head>
 
 <h:body>
@@ -34,26 +36,27 @@
     <div class="main-container">
         <div class="container">
             <div class="container-text">
-                <h:form>
+                <h:form id="new_form">
                     <h:outputLabel for="x-input" value="Координата X"/>
                     <p:spinner id="x-input" styleClass="x-input" min="-4" max="4" stepFactor="0.5"
                                decimalSeparator="." placeholder="Введите число от -4 до 4" required="true"
-                               requiredMessage="Введите координату X" value="#{pointData.x}"
+                               requiredMessage="Введите координату X" value="#{pointData.x}" round="true"
                                validatorMessage="Число должно быть от -4 до 4"
-                               converterMessage="Введите корректное число">
+                               converterMessage="Введите корректное число"
+                               widgetVar="x-spinner"
+                               converter="javax.faces.Double">
                         <f:validateDoubleRange minimum="-4" maximum="4"/>
-                        <f:convertNumber type="number"/>
                     </p:spinner>
                     <h:message id="x-input-error" for="x-input" styleClass="error_message"/>
                     <br/>
 
                     <h:outputLabel for="y-input" value="Координата Y"/>
-                    <h:inputText id="y-input" class="input" a:placeholder="Введите число от -5 до 3" required="true"
+                    <h:inputText id="y-input" class="input y-input" a:placeholder="Введите число от -5 до 3" required="true"
                                  requiredMessage="Введите кординату Y" value="#{pointData.y}"
                                  validatorMessage="Число должно быть от -5 до 3"
-                                 converterMessage="Введите корректное число">
+                                 converterMessage="Введите корректное число"
+                                 converter="javax.faces.Double">
                         <f:validateDoubleRange minimum="-5" maximum="3"/>
-                        <f:convertNumber type="number"/>
                     </h:inputText>
                     <h:message id="y-input-error" for="y-input" styleClass="error_message"/>
                     <br/>
@@ -62,9 +65,9 @@
                     <h:inputText id="radius" class="input" a:placeholder="Введите число от 1 до 4" required="true"
                                  requiredMessage="Введите радиус" value="#{pointData.r}"
                                  validatorMessage="Число должно быть от 1 до 4"
-                                 converterMessage="Введите корректное число">
+                                 converterMessage="Введите корректное число"
+                                 converter="javax.faces.Double">
                         <f:validateDoubleRange minimum="1" maximum="4"/>
-                        <f:convertNumber type="number"/>
                     </h:inputText>
                     <h:message id="radius-error" for="radius" styleClass="error_message"/>
                     <br/>
@@ -77,10 +80,12 @@
 
             </div>
 
+            <h:graphicImage>
             <svg
                     id="graphic"
                     width="300"
                     height="300"
+                    onclick="checkHit(event)"
             >
                 <rect width="100%" height="100%" fill="white" />
                 <line
@@ -171,6 +176,7 @@
 
                 <circle class="hidden" cx="25" cy="75" r="5" fill="red" />
             </svg>
+            </h:graphicImage>
 
         </div>
 
