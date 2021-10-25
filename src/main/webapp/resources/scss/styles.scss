@@ -61,9 +61,10 @@ body {
   grid-template-columns: 1fr 1fr;
   place-items: center;
   line-height: 1.5;
-  margin: 5%;
+  padding: 5%;
 
   svg {
+    box-sizing: content-box;
     padding: 10px;
     border: 5px #6589FF solid;
     border-radius: 10px;
