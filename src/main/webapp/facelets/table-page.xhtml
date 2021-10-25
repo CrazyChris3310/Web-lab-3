@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: danil
+  Date: 16.10.2021
+  Time: 20:26
+-->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <h:outputStylesheet name="styles.css" library="css"/>
+    <h:outputScript library="scripts" name="jquery-3.6.0.min.js"/>
+<!--    <h:outputScript name="data-validation.js" library="scripts" target="body"/>-->
+</h:head>
+
+<h:body>
+
+    <header>
+        <div class="header_content">
+            <div>№468</div>
+            <div>Вахрушев Данил Сергеевич</div>
+            <div>P3231</div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="container">
+            <div class="container-text">
+                <h:form>
+                    <h:outputLabel for="x-input" value="Координата X"/>
+                    <p:spinner id="x-input" styleClass="x-input" min="-4" max="4" stepFactor="0.5"
+                               decimalSeparator="." placeholder="Введите число от -4 до 4" required="true"
+                               requiredMessage="Введите координату X" value="#{pointData.x}"
+                               validatorMessage="Число должно быть от -4 до 4"
+                               converterMessage="Введите корректное число">
+                        <f:validateDoubleRange minimum="-4" maximum="4"/>
+                        <f:convertNumber type="number"/>
+                    </p:spinner>
+                    <h:message id="x-input-error" for="x-input" styleClass="error_message"/>
+                    <br/>
+
+                    <h:outputLabel for="y-input" value="Координата Y"/>
+                    <h:inputText id="y-input" class="input" a:placeholder="Введите число от -5 до 3" required="true"
+                                 requiredMessage="Введите кординату Y" value="#{pointData.y}"
+                                 validatorMessage="Число должно быть от -5 до 3"
+                                 converterMessage="Введите корректное число">
+                        <f:validateDoubleRange minimum="-5" maximum="3"/>
+                        <f:convertNumber type="number"/>
+                    </h:inputText>
+                    <h:message id="y-input-error" for="y-input" styleClass="error_message"/>
+                    <br/>
+
+                    <h:outputLabel for="radius" value="Радиус"/>
+                    <h:inputText id="radius" class="input" a:placeholder="Введите число от 1 до 4" required="true"
+                                 requiredMessage="Введите радиус" value="#{pointData.r}"
+                                 validatorMessage="Число должно быть от 1 до 4"
+                                 converterMessage="Введите корректное число">
+                        <f:validateDoubleRange minimum="1" maximum="4"/>
+                        <f:convertNumber type="number"/>
+                    </h:inputText>
+                    <h:message id="radius-error" for="radius" styleClass="error_message"/>
+                    <br/>
+
+                    <h:commandButton value="Проверить">
+                        <f:ajax execute="x-input y-input radius" listener="#{matchesHistory.addPoint(
+                        pointData.calculateHit())}" render="table-with-data x-input-error y-input-error radius-error"/>
+                    </h:commandButton>
+                </h:form>
+
+            </div>
+
+
+
+        </div>
+
+        <div id="results-table-area">
+
+            <h:dataTable id="table-with-data" value="#{matchesHistory.previousHits}" var="hit" styleClass="results #{matchesHistory.isEmpty() ?
+            'hidden' : ''}">
+
+                <h:column>
+                    <f:facet name="header">X координата</f:facet>
+                    #{hit.x}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Y координата</f:facet>
+                    #{hit.y}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Радиус</f:facet>
+                    #{hit.r}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Дата проверки</f:facet>
+                    #{hit.date}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Время работы скрипта</f:facet>
+                    #{hit.duration}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Попадание</f:facet>
+                    #{hit.match}
+                </h:column>
+
+            </h:dataTable>
+        </div>
+
+    </div>
+
+
+</h:body>
+
+</html>

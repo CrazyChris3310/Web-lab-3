@@ -28,11 +28,11 @@
         <h:message for="name-input">
             <br/>
         </h:message>
-        <h:commandButton action="/facelets/header" value="Submit"/>
+        <h:commandButton action="#{testBeanDAO.addBean(testBean)}" value="Submit"/>
 
     </h:form>
     <h:form>
-        <h:commandButton action="/facelets/page1" value="Go to page 1"/>
+        <h:commandButton action="/facelets/table-page" value="Go to page 1"/>
     </h:form>
 </h:body>
 

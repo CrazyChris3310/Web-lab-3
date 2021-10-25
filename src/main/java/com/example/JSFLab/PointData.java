@@ -2,6 +2,8 @@ package com.example.JSFLab;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @ManagedBean(name="pointData")
 @RequestScoped
@@ -61,5 +63,13 @@ public class PointData {
 
     public void setMatch(String match) {
         this.match = match;
+    }
+
+    public PointData calculateHit() {
+        long start = System.nanoTime();
+        date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+        match = x > 0 ? "Да" : "Нет";
+        duration = (System.nanoTime() - start) / 1000 + "мкс";
+        return this;
     }
 }

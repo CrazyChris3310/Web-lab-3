@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Title</title>
@@ -21,6 +21,18 @@
     <h:form>
         <h:commandButton action="/home" value="Go home"/>
     </h:form>
+
+    <h:dataTable value="#{testBeanDAO.beans}" var="bean">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            <h:outputText value="#{bean.name}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Surname</f:facet>
+            <h:outputText value="#{bean.surname}"/>
+        </h:column>
+    </h:dataTable>
 </h:body>
 
 </html>

@@ -6,8 +6,8 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name="testBean")
 @RequestScoped
 public class TestBean {
-    String name;
-    String surname;
+    private String name;
+    private String surname;
 
     public String getName() {
         return name;
