@@ -6,3 +6,14 @@ function checkHit(event) {
     $('.y-input').val(y);
     $('input[type="submit"]').trigger('click');
 }
+
+function updateRadius(event) {
+    let r = event.target.value;
+    if (r > 4 || r < 1)
+        return;
+    $("#graph-path").removeClass("hidden");
+    let path = "M 150 " + (150-r*30) + " L 150 " + (150-r*15) + " L " + (150+r*30) + " " + (150-r*15) +
+        " L " + (150+r*30) + " 150 L 150 150 L 150 " + (150+r*30) + " A " + (r*30) + " " + (r*30) +
+        " 0 0 1 " + (150-r*30) + " 150 L 150 " + (150-r*30);
+    $("#graph-path").attr("d", path);
+}

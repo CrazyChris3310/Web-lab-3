@@ -8,15 +8,15 @@ import java.time.format.DateTimeFormatter;
 @ManagedBean(name="pointData")
 @RequestScoped
 public class PointData {
-    private double x;
-    private double y;
-    private double r;
+    private Double x;
+    private Double y;
+    private Double r;
     private String date;
     private String duration;
     private String match;
 
 
-    public double getX() {
+    public Double getX() {
         return x;
     }
 
@@ -24,7 +24,7 @@ public class PointData {
         this.x = x;
     }
 
-    public double getY() {
+    public Double getY() {
         return y;
     }
 
@@ -33,7 +33,7 @@ public class PointData {
         System.out.println(this.y);
     }
 
-    public double getR() {
+    public Double getR() {
         return r;
     }
 

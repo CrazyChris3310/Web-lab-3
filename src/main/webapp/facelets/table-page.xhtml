@@ -63,10 +63,11 @@
 
                     <h:outputLabel for="radius" value="Радиус"/>
                     <h:inputText id="radius" class="input" a:placeholder="Введите число от 1 до 4" required="true"
-                                 requiredMessage="Введите радиус" value="#{pointData.r}"
+                                 requiredMessage="Введите радиус" value="#{pointData.r == 0 ? '' : pointData.r}"
                                  validatorMessage="Число должно быть от 1 до 4"
                                  converterMessage="Введите корректное число"
-                                 converter="javax.faces.Double">
+                                 converter="javax.faces.Double"
+                                 onchange="updateRadius(event)">
                         <f:validateDoubleRange minimum="1" maximum="4"/>
                     </h:inputText>
                     <h:message id="radius-error" for="radius" styleClass="error_message"/>
@@ -171,9 +172,16 @@
                         stroke-width="2"
                         fill="blue"
                         fill-opacity="0.5"
+                        class="hidden"
                         id="graph-path"
                 />
 
+<!--                TODO: create templates for each page-->
+<!--                TODO: create page with a timer-->
+<!--                TODO: create navigation rules through the file-->
+<!--                TODO: transfer everything to work with database-->
+<!--                TODO: add points to graphic-->
+<!--                TODO: make a method to define whether dot is inside an area-->
                 <circle class="hidden" cx="25" cy="75" r="5" fill="red" />
             </svg>
             </h:graphicImage>
