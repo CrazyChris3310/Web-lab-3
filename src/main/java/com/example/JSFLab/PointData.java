@@ -20,7 +20,7 @@ public class PointData {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
@@ -28,7 +28,7 @@ public class PointData {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(Double y) {
         this.y = y;
         System.out.println(this.y);
     }
@@ -37,7 +37,7 @@ public class PointData {
         return r;
     }
 
-    public void setR(double r) {
+    public void setR(Double r) {
         this.r = r;
     }
 

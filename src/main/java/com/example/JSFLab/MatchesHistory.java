@@ -33,6 +33,10 @@ public class MatchesHistory {
         return "/facelets/page1";
     }
 
+    public PointData getFirst() {
+        return previousHits.peekFirst();
+    }
+
     public boolean isEmpty() {
         return previousHits.isEmpty();
     }

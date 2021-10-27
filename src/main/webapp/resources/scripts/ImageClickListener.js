@@ -17,3 +17,7 @@ function updateRadius(event) {
         " 0 0 1 " + (150-r*30) + " 150 L 150 " + (150-r*30);
     $("#graph-path").attr("d", path);
 }
+
+function alertSomething(message) {
+    alert(message);
+}
