@@ -67,8 +67,22 @@ public class PointData {
 
     public PointData calculateHit() {
         long start = System.nanoTime();
+
+        if (x > 0) {
+            if (y >= 0 && y <= r/2 && x <= r)
+                match = "Да";
+            else
+                match = "Нет";
+        } else {
+            if (y >= 0 && y <= x + 4)
+                match = "Да";
+            else if (y <= 0 && x*x + y*y <= r*r)
+                match = "Да";
+            else
+                match = "Нет";
+        }
+
         date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
-        match = x > 0 ? "Да" : "Нет";
         duration = (System.nanoTime() - start) / 1000 + "мкс";
         return this;
     }
