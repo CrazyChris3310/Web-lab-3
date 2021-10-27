@@ -75,7 +75,7 @@
                     <br/>
 
                     <h:commandButton value="Проверить">
-                        <f:ajax execute="x-input y-input radius" listener="#{matchesHistory.addPoint(
+                        <f:ajax execute="x-input y-input radius" listener="#{pointDataDAO.addPoint(
                         pointData.calculateHit())}" render="table-with-data x-input-error y-input-error radius-error image-component"/>
                     </h:commandButton>
                 </h:form>
@@ -179,14 +179,14 @@
                     <!--                TODO: create templates for each page-->
                     <!--                TODO: create page with a timer-->
                     <!--                TODO: create navigation rules through the file-->
-                    <!--                TODO: transfer everything to work with database-->
-                    <!--                TODO: add points to graphic-->
                     <!--                TODO: make a method to define whether dot is inside an area-->
-                    <ui:repeat value="#{matchesHistory.previousHits}" var="point" offset="1">
+                    <!--                TODO: make error handling with SQLExceptions -->
+                    <!--                TODO: find a way to clear database after application stop-->
+                    <ui:repeat value="#{pointDataDAO.allPoints}" var="point" offset="1">
                         <circle cx="#{point.x*30 + 150}" cy="#{150 - point.y*30}" r="5" fill="grey"/>
                     </ui:repeat>
-                    <circle class="#{matchesHistory.first == null ? 'hidden' : ''}" cx="#{matchesHistory.first.x *30 + 150}"
-                            cy="#{150 - matchesHistory.first.y*30}" r="5" fill="#{matchesHistory.first.match == 'Да' ?
+                    <circle class="#{pointDataDAO.first == null ? 'hidden' : ''}" cx="#{pointDataDAO.first.x *30 + 150}"
+                            cy="#{150 - pointDataDAO.first.y*30}" r="5" fill="#{pointDataDAO.first.match == 'Да' ?
                              'green' : 'red'}"/>
                 </svg>
             </h:panelGroup>
@@ -195,8 +195,8 @@
 
         <div id="results-table-area">
 
-            <h:dataTable id="table-with-data" value="#{matchesHistory.previousHits}" var="hit" styleClass="results
-            #{matchesHistory.isEmpty() ? 'hidden' : ''}">
+            <h:dataTable id="table-with-data" value="#{pointDataDAO.allPoints}" var="hit" styleClass="results
+            #{pointDataDAO.isEmpty() ? 'hidden' : ''}">
 
                 <h:column>
                     <f:facet name="header">X координата</f:facet>
