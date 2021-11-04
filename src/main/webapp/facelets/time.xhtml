@@ -10,14 +10,36 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <title>Title</title>
+    <title>Время</title>
+    <h:outputStylesheet name="headerStyle.css" library="css"/>
+    <h:outputStylesheet name="timerBody.css" library="css"/>
+    <h:outputScript library="scripts" name="timeScript.js"/>
 </h:head>
 
 <h:body>
 
+    <ui:insert name="header">
+        <ui:include src="header.xhtml"/>
+    </ui:insert>
+
+    <div class="clock">
+        <div>
+            <h:outputText id="date" value="#{timeBean.currentDate}"/>
+        </div>
+        <div>
+            <h:outputText id="time" value="#{timeBean.currentTime}"/>
+        </div>
+    </div>
+    <h:form id="timeForm">
+        <h:commandLink action="/facelets/table-page" value="К таблице"/>
+        <h:inputHidden id="timeOffset" readonly="true" value="#{timeBean.offset}"/>
+        <p:poll listener="#{timeBean.updateTime}" process="timeOffset" update="time date" interval="13" onstart="setTimeOffset"/>
+    </h:form>
 </h:body>
 
 </html>

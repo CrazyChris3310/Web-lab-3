@@ -4,7 +4,7 @@ function checkHit(event) {
 
     PF("x-spinner").setValue(x);
     $('.y-input').val(y);
-    $('input[type="submit"]').trigger('click');
+    $('#new_form\\:checkBtn').trigger('click');
 }
 
 function updateRadius(event) {

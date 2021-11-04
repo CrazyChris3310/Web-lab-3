@@ -18,21 +18,18 @@
 <h:head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title>
+    <title>Lab 3</title>
     <h:outputStylesheet name="styles.css" library="css"/>
+    <h:outputStylesheet name="headerStyle.css" library="css"/>
     <h:outputScript library="scripts" name="jquery-3.6.0.min.js" target="body"/>
     <h:outputScript library="scripts" name="ImageClickListener.js" target="body"/>
 </h:head>
 
 <h:body>
 
-    <header>
-        <div class="header_content">
-            <div>№468</div>
-            <div>Вахрушев Данил Сергеевич</div>
-            <div>P3231</div>
-        </div>
-    </header>
+    <ui:insert name="header">
+        <ui:include src="header.xhtml"/>
+    </ui:insert>
 
     <div class="main-container">
         <div class="container">
@@ -74,9 +71,12 @@
                     <h:message id="radius-error" for="radius" styleClass="error_message"/>
                     <br/>
 
-                    <h:commandButton value="Проверить">
+                    <h:commandButton id="checkBtn" value="Проверить">
                         <f:ajax execute="x-input y-input radius" listener="#{pointDataDAO.addPoint(
                         pointData.calculateHit())}" render="table-with-data x-input-error y-input-error radius-error image-component"/>
+                    </h:commandButton>
+                    <h:commandButton value="На главную">
+                        <f:event type="preValidate" listener="#{pointDataDAO.getTimePage}"/>
                     </h:commandButton>
                 </h:form>
 
@@ -176,8 +176,6 @@
                             id="graph-path"
                     />
 
-                    <!--                TODO: create templates for each page-->
-                    <!--                TODO: create page with a timer-->
                     <!--                TODO: create navigation rules through the file-->
                     <!--                TODO: make error handling with SQLExceptions -->
                     <!--                TODO: find a way to clear database after application stop-->

@@ -5,15 +5,18 @@ import com.example.JSFLab.dataBase.DataBaseConnection;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Deque;
 import java.util.LinkedList;
 
-@ManagedBean(name="pointDataDAO")
+@ManagedBean(name="pointDataDAO", eager = true)
 @ApplicationScoped
 public class PointDataDAO {
 
     Connection connection;
+    PointData lastPoint;
 
     {
         String URL = System.getenv("databaseURL");
@@ -30,6 +33,7 @@ public class PointDataDAO {
             throw new ExceptionInInitializerError(e);
         } catch (SQLException e) {
             System.err.println("SQL error. " + e.getMessage());
+            e.printStackTrace();
             throw new ExceptionInInitializerError(e);
         }
     }
@@ -48,7 +52,7 @@ public class PointDataDAO {
     }
 
     public void addPoint(PointData point) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO matchresults values (?, ?, ?, ?, ?, ?)");
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO matchresults values (matchresults_id_seq.nextval, ?, ?, ?, ?, ?, ?)");
         ps.setDouble(1, point.getX());
         ps.setDouble(2, point.getY());
         ps.setDouble(3, point.getR());
@@ -57,11 +61,14 @@ public class PointDataDAO {
         ps.setString(6, point.getMatch());
         ps.executeUpdate();
         ps.close();
+        lastPoint = point;
     }
 
     public PointData getFirst() throws SQLException {
+        if (lastPoint != null)
+            return lastPoint;
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM matchresults ORDER BY id DESC LIMIT 1");
+        ResultSet rs = st.executeQuery("SELECT * FROM matchresults ORDER BY id DESC");
         PointData point = null;
         if (rs.next()) {
             point = getPointDataFromRS(rs);
@@ -84,18 +91,27 @@ public class PointDataDAO {
 
     public boolean isEmpty() throws SQLException {
         Statement st = connection.createStatement();
-        boolean isNotEmpty = st.execute("SELECT * FROM matchresults");
+        ResultSet rs = st.executeQuery("SELECT * FROM matchresults");
+        boolean isNotEmpty = rs.next();
         st.close();
+        rs.close();
         return !isNotEmpty;
     }
 
-    // FIXME: Method does not clear the database
     @PreDestroy
-    private void clearingDB() throws SQLException {
-        Statement st = connection.createStatement();
-        st.executeUpdate("DELETE FROM matchresults");
-        st.close();
-        connection.close();
+    private void clearingDB() {
+        try (Statement st = connection.createStatement()) {
+            st.executeUpdate("DELETE FROM matchresults");
+            st.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getTimePage() throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/facelets/time.xhtml");
     }
 
 }

@@ -30,7 +30,6 @@ public class PointData {
 
     public void setY(Double y) {
         this.y = y;
-        System.out.println(this.y);
     }
 
     public Double getR() {

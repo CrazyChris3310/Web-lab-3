@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DataBaseConnection {
 
     public static Connection getConnection(String URL, String hostName, String hostPassword) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
+        Class.forName("oracle.jdbc.driver.OracleDriver");
         return DriverManager.getConnection(URL, hostName, hostPassword);
     }
 
