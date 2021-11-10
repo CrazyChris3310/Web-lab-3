@@ -14,7 +14,8 @@ import java.time.format.DateTimeFormatter;
 public class PointData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "id_seq", sequenceName = "matchresults_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
     private int id;
 
     @Column(name="xcord")
@@ -31,10 +32,6 @@ public class PointData {
 
     @Column(name = "result")
     private String match;
-
-    public int getId() {
-        return id;
-    }
 
     public Double getX() {
         return x;

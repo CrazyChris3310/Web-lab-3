@@ -183,7 +183,7 @@
                         <circle cx="#{point.x*30 + 150}" cy="#{150 - point.y*30}" r="5" fill="grey"/>
                     </ui:repeat>
                     <circle class="#{pointDataDAO.first == null ? 'hidden' : ''}" cx="#{pointDataDAO.first.x *30 + 150}"
-                            cy="#{150 - pointDataDAO.first.y*30}" r="5" fill="#{pointDataDAO.first.match == 'Да' ?
+                            cy="#{150 - pointDataDAO.first.y*30}" r="5" fill="#{pointDataDAO.first.match.equals('Да') ?
                              'green' : 'red'}"/>
                 </svg>
             </h:panelGroup>
