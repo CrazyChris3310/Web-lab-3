@@ -1,9 +1,8 @@
 package com.example.JSFLab;
 
-import jakarta.persistence.*;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,6 +26,7 @@ public class PointData {
     @Column(name="radius")
     private Double r;
 
+    @Column(name = "dateTime")
     private String date;
     private String duration;
 

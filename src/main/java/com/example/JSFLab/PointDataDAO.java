@@ -1,23 +1,19 @@
 package com.example.JSFLab;
 
-import com.example.JSFLab.dataBase.DataBaseConnection;
 import com.example.JSFLab.dataBase.HibernateSessionFactoryUtil;
-import jakarta.persistence.Query;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import temp.TestBean;
+import org.hibernate.query.Query;
 
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.sql.*;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 @ManagedBean(name="pointDataDAO", eager = true)
@@ -29,6 +25,7 @@ public class PointDataDAO {
     public List<PointData> getAllPoints() {
 
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
 
@@ -38,8 +35,11 @@ public class PointDataDAO {
 
         cq.select(root);
 
+        cq.orderBy(cb.desc(root.get("id")));
+
         Query query = session.createQuery(cq);
         List<PointData> list = query.getResultList();
+        tx.commit();
         session.close();
 
         return list;
@@ -61,6 +61,15 @@ public class PointDataDAO {
 
     public boolean isEmpty() throws SQLException {
         return getAllPoints().size() == 0;
+    }
+
+    @PreDestroy
+    public void clearTable() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.createQuery("delete from com.example.JSFLab.PointData").executeUpdate();
+        tx.commit();
+        session.close();
     }
 
     public void getTimePage() throws IOException {

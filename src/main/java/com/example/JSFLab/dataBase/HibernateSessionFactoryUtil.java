@@ -7,8 +7,6 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import temp.TestBean;
 
 public class HibernateSessionFactoryUtil {
     private static SessionFactory factory;
@@ -22,7 +20,6 @@ public class HibernateSessionFactoryUtil {
 
                 Metadata metadata = new MetadataSources(registry)
                         .addAnnotatedClass(PointData.class)
-                        .addAnnotatedClass(TestBean.class)
                         .buildMetadata();
 
                 factory = metadata.getSessionFactoryBuilder().build();
