@@ -1,5 +1,7 @@
 package com.example.JSFLab;
 
+import jakarta.persistence.*;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.time.LocalDateTime;
@@ -7,14 +9,32 @@ import java.time.format.DateTimeFormatter;
 
 @ManagedBean(name="pointData")
 @RequestScoped
+@Entity
+@Table(name = "matchresults")
 public class PointData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name="xcord")
     private Double x;
+
+    @Column(name="ycord")
     private Double y;
+
+    @Column(name="radius")
     private Double r;
+
     private String date;
     private String duration;
+
+    @Column(name = "result")
     private String match;
 
+    public int getId() {
+        return id;
+    }
 
     public Double getX() {
         return x;
