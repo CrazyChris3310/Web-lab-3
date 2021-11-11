@@ -81,7 +81,7 @@ public class PointDataDAO {
         point.setX(rs.getDouble("xCord"));
         point.setY(rs.getDouble("yCord"));
         point.setR(rs.getDouble("radius"));
-        point.setDate(rs.getString("date"));
+        point.setDate(rs.getString("datetime"));
         point.setDuration(rs.getString("duration"));
         point.setMatch(rs.getString("result"));
         return point;
