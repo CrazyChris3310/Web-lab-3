@@ -75,8 +75,7 @@
                         <f:ajax execute="x-input y-input radius" listener="#{pointDataDAO.addPoint(
                         pointData.calculateHit())}" render="table-with-data x-input-error y-input-error radius-error image-component"/>
                     </h:commandButton>
-                    <h:commandButton value="На главную">
-                        <f:event type="preValidate" listener="#{pointDataDAO.getTimePage}"/>
+                    <h:commandButton value="На главную" immediate="true" action="/facelets/time">
                     </h:commandButton>
                 </h:form>
 
@@ -176,9 +175,6 @@
                             id="graph-path"
                     />
 
-                    <!--                TODO: create navigation rules through the file-->
-                    <!--                TODO: make error handling with SQLExceptions -->
-                    <!--                TODO: find a way to clear database after application stop-->
                     <ui:repeat value="#{pointDataDAO.allPoints}" var="point" offset="1">
                         <circle cx="#{point.x*30 + 150}" cy="#{150 - point.y*30}" r="5" fill="grey"/>
                     </ui:repeat>

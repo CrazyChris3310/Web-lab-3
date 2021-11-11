@@ -7,7 +7,6 @@
     <navigation-rule>
         <from-view-id>/facelets/table-page.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>failure</from-outcome>
             <to-view-id>/facelets/time.xhtml</to-view-id>
             <redirect />
         </navigation-case>

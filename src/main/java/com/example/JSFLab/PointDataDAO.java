@@ -5,8 +5,6 @@ import com.example.JSFLab.dataBase.DataBaseConnection;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -109,9 +107,5 @@ public class PointDataDAO {
         }
     }
 
-    public void getTimePage() throws IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/facelets/time.xhtml");
-    }
 
 }
