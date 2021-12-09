@@ -35,15 +35,18 @@
         <div class="container">
             <div class="container-text">
                 <h:form id="new_form">
+                    <h:inputHidden id="cordsInput" binding="#{pictureClick}"/>
+
                     <h:outputLabel for="x-input" value="Координата X"/>
                     <p:spinner id="x-input" styleClass="x-input" min="-4" max="4" stepFactor="0.5"
                                decimalSeparator="." placeholder="Введите число от -4 до 4" required="true"
-                               requiredMessage="Введите координату X" value="#{pointData.x}" round="true"
+                               requiredMessage="Введите координату X" value="#{pointData.x}"
                                validatorMessage="Число должно быть от -4 до 4"
                                converterMessage="Введите корректное число"
                                widgetVar="x-spinner"
                                converter="javax.faces.Double">
-                        <f:validateDoubleRange minimum="-4" maximum="4"/>
+                        <f:validator validatorId="xCordValidator"/>
+                        <f:attribute name="pictureClick" value="#{pictureClick}"/>
                     </p:spinner>
                     <h:message id="x-input-error" for="x-input" styleClass="error_message"/>
                     <br/>
@@ -54,7 +57,8 @@
                                  validatorMessage="Число должно быть от -5 до 3"
                                  converterMessage="Введите корректное число"
                                  converter="javax.faces.Double">
-                        <f:validateDoubleRange minimum="-5" maximum="3"/>
+                        <f:validator validatorId="yCordValidator"/>
+                        <f:attribute name="pictureClick" value="#{pictureClick}"/>
                     </h:inputText>
                     <h:message id="y-input-error" for="y-input" styleClass="error_message"/>
                     <br/>
@@ -71,12 +75,16 @@
                     <h:message id="radius-error" for="radius" styleClass="error_message"/>
                     <br/>
 
-                    <h:commandButton id="checkBtn" value="Проверить">
-                        <f:ajax execute="x-input y-input radius" listener="#{pointDataDAO.addPoint(
+                    <h:commandButton id="checkBtn" onclick="setClickOnBtn()" value="Проверить">
+                        <f:ajax execute="cordsInput x-input y-input radius" listener="#{pointDataDAO.addPoint(
                         pointData.calculateHit())}" render="table-with-data x-input-error y-input-error radius-error image-component"/>
                     </h:commandButton>
-                    <h:commandButton value="На главную" immediate="true" action="/facelets/time">
+                    <h:commandButton value="На главную" immediate="true" action="/facelets/time" />
+                    <h:commandButton id="hiddenButton" style="display: none">
+                        <f:ajax execute="cordsInput x-input y-input radius" listener="#{pointDataDAO.addPoint(
+                        pointData.calculateHit())}" render="table-with-data x-input-error y-input-error radius-error image-component"/>
                     </h:commandButton>
+
                 </h:form>
 
             </div>
@@ -180,7 +188,7 @@
                     </ui:repeat>
                     <circle class="#{pointDataDAO.first == null ? 'hidden' : ''}" cx="#{pointDataDAO.first.x *30 + 150}"
                             cy="#{150 - pointDataDAO.first.y*30}" r="5" fill="#{pointDataDAO.first.match == 'Да' ?
-                             'green' : 'red'}"/>
+                             '#00ff00' : '#ff0000'}"/>
                 </svg>
             </h:panelGroup>
 

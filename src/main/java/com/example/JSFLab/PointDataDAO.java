@@ -50,7 +50,7 @@ public class PointDataDAO {
     }
 
     public void addPoint(PointData point) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO matchresults values (matchresults_id_seq.nextval, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO matchresults values (?, ?, ?, ?, ?, ?)");
         ps.setDouble(1, point.getX());
         ps.setDouble(2, point.getY());
         ps.setDouble(3, point.getR());

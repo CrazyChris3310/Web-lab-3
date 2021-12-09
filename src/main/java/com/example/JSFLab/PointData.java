@@ -1,12 +1,12 @@
 package com.example.JSFLab;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @ManagedBean(name="pointData")
-@RequestScoped
+@SessionScoped
 public class PointData {
     private Double x;
     private Double y;
@@ -15,6 +15,15 @@ public class PointData {
     private String duration;
     private String match;
 
+    private boolean clickedOnGraph;
+
+    public boolean isClickedOnGraph() {
+        return clickedOnGraph;
+    }
+
+    public void setClickedOnGraph(boolean clickedOnGraph) {
+        this.clickedOnGraph = clickedOnGraph;
+    }
 
     public Double getX() {
         return x;
