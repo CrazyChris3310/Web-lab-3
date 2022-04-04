@@ -10,15 +10,16 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("yCordValidator")
 public class YCordValidator implements Validator {
-    @Override
-    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        UIInput input= (UIInput) component.getAttributes().get("pictureClick");
-        String str = (String) input.getValue();
-        double val = (Double) value;
-        if (!"true".equals(str)) {
-            if (val > 3 || val < -5) {
-                throw new ValidatorException(new FacesMessage(((UIInput) component).getValidatorMessage()));
-            }
-        }
+  @Override
+  public void validate(FacesContext context, UIComponent component, Object value)
+          throws ValidatorException {
+    UIInput input = (UIInput) component.getAttributes().get("pictureClick");
+    String str = (String) input.getValue();
+    double val = (Double) value;
+    if (!"true".equals(str)) {
+      if (val > 3 || val < -5) {
+        throw new ValidatorException(new FacesMessage(((UIInput) component).getValidatorMessage()));
+      }
     }
+  }
 }
