@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Class for getting a connection to database
+ */
 public class DataBaseConnection {
 
   public static Connection getConnection(String URL, String hostName, String hostPassword)

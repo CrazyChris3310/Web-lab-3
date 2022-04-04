@@ -13,6 +13,9 @@ import java.sql.Statement;
 import java.util.Deque;
 import java.util.LinkedList;
 
+/**
+ * Class to interact with database and operate with {@link PointData} objects
+ */
 @ManagedBean(name = "pointDataDAO", eager = true)
 @ApplicationScoped
 public class PointDataDAO {
@@ -40,6 +43,11 @@ public class PointDataDAO {
     }
   }
 
+  /**
+   * Get all points in database
+   * @return all queried points
+   * @throws SQLException if a database access error occurs
+   */
   public Deque<PointData> getAllPoints() throws SQLException {
     Deque<PointData> matches = new LinkedList<>();
     Statement st = connection.createStatement();
@@ -64,6 +72,11 @@ public class PointDataDAO {
     return point;
   }
 
+  /**
+   * Adds point to database
+   * @param point new point to add
+   * @throws SQLException if a database access error occurs
+   */
   public void addPoint(PointData point) throws SQLException {
     PreparedStatement ps = connection.prepareStatement(
             "INSERT INTO matchresults values (matchresults_id_seq.nextval, ?, ?, ?, ?, ?, ?)");
@@ -78,6 +91,9 @@ public class PointDataDAO {
     lastPoint = point;
   }
 
+  /**
+   * Returns first point in the database, which is the last point that was checked
+   */
   public PointData getFirst() throws SQLException {
       if (lastPoint != null) { return lastPoint; }
     Statement st = connection.createStatement();
@@ -91,6 +107,11 @@ public class PointDataDAO {
     return point;
   }
 
+  /**
+   * Checks whether the database has no points saved
+   * @return true if database is empty
+   * @throws SQLException if a database access error occurs
+   */
   public boolean isEmpty() throws SQLException {
     Statement st = connection.createStatement();
     ResultSet rs = st.executeQuery("SELECT * FROM matchresults");

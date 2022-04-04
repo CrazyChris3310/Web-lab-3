@@ -5,6 +5,10 @@ import javax.faces.bean.SessionScoped;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class represents all data about point that was hit. (x, y) coordinates, radius of area
+ * and some additional technical information.
+ */
 @ManagedBean(name = "pointData")
 @SessionScoped
 public class PointData {
@@ -73,6 +77,11 @@ public class PointData {
     this.match = match;
   }
 
+  /**
+   * Calculate whether this point was hit in the necessary area and stores result in
+   * point's {@code match} field
+   * @return this point with {@code match} field set
+   */
   public PointData calculateHit() {
     long start = System.nanoTime();
 
