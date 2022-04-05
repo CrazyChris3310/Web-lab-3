@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="JSFLab" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant" basedir=".">
+
+    <property file="build.properties" />
+    <property name="fun" value="true" />
+
+    <path id="classpath">
+        <fileset dir="${basedir}/">
+            <include name="lib/*.jar" />
+        </fileset>
+    </path>
+
+    <path id="test-classpath">
+        <fileset dir="${basedir}/">
+            <include name="lib/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}/classes" />
+        <javac srcdir="${source.dir}/java"  includeantruntime="false" 
+            destdir="${build.dir}/classes" classpathref="classpath">
+        </javac>
+    </target>
+
+    <target name="resolve" description="resolve dependencies">
+      <ivy:resolve />
+   </target>
+
+   <target name="retrieve">
+    <ivy:retrieve />
+   </target>
+
+    <target name="build" depends="compile, fun">
+        <jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${build.dir}/classes">
+            <fileset dir="${basedir}/">
+                <include name="lib/*.jar"/>
+            </fileset>
+            <fileset dir="${source.dir}">
+                <exclude name="java/**" />
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="com.example.JSFLab.Main" />
+            </manifest>
+        </jar>
+        <property name="fun.done" value="false"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="target"/>
+    </target>
+
+    <target name="doc">
+        <javadoc sourcepath="${source.dir}/java" classpathref="classpath" destdir="${build.dir}/doc" />
+    </target>
+
+    <target name="fun" if="fun" unless="fun.done">
+        <sound>
+            <success source="povezlo.wav"/>
+            <fail source="misha.wav"/>
+        </sound>
+        <property name="fun.done" value="true"/>
+    </target>
+
+    <target name="compile-tests" depends="build">
+        <mkdir dir="${build.dir}/tests" />
+        <javac srcdir="${test.dir}/java"  includeantruntime="false" 
+            destdir="${build.dir}/tests">
+            <classpath>
+                <pathelement location="${build.dir}/${ant.project.name}.jar"/>
+                <path refid="classpath" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile-tests">
+        <mkdir dir="${build.dir}/reports" />
+        <junitlauncher>
+
+            <classpath refid="classpath" />
+            <classpath>
+                <pathelement location="${build.dir}/tests"/>
+                <pathelement location="${build.dir}/${ant.project.name}.jar" />
+            </classpath>
+    
+            <testclasses outputDir="${build.dir}/reports">
+                <fileset dir="${build.dir}/tests"/>
+                <listener type="legacy-plain" sendSysOut="true" />
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+</project>

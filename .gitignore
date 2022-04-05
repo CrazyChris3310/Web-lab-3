@@ -3,4 +3,6 @@
 target
 *.iml
 
+lib
+
 src/main/webapp/resources/css/*.map
