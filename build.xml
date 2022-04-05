@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="JSFLab" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant" basedir=".">
 
-    <property file="build.properties.dev" />
+    <property file="build.properties.prod" />
 
     <path id="classpath">
         <fileset dir="${basedir}/">
@@ -25,7 +25,7 @@
    </target>
 
     <target name="build" depends="compile, fun">
-        <jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${build.dir}/classes">
+        <jar destfile="${build.dir}/${jar.name}.jar" basedir="${build.dir}/classes">
             <fileset dir="${basedir}/">
                 <include name="lib/*.jar"/>
             </fileset>
@@ -33,29 +33,28 @@
                 <exclude name="java/**" />
             </fileset>
             <manifest>
-                <attribute name="Main-Class" value="com.example.JSFLab.Main" />
+                <attribute name="Main-Class" value="${main.class}" />
             </manifest>
         </jar>
-        <property name="fun.done" value="false"/>
     </target>
 
     <target name="clean">
-        <delete dir="target"/>
+        <delete dir="${build.dir}"/>
     </target>
 
     <target name="doc" depends="build">
         <javadoc sourcepath="${source.dir}/java" classpathref="classpath" destdir="${build.dir}/javadoc" />
-        <zip destfile="${build.dir}/${ant.project.name}.jar" update="true" basedir="${build.dir}" includes="javadoc/*" />
-        <signjar jar="target/${ant.project.name}.jar" alias="${keystore.alias}" storepass="${storepass}" 
+        <zip destfile="${build.dir}/${jar.name}.jar" update="true" basedir="${build.dir}" includes="javadoc/*" />
+        <signjar jar="${build.dir}/${jar.name}.jar" alias="${keystore.alias}" storepass="${storepass}" 
         keystore="${keystore.path}" digestalg="SHA-1" />
-        <signjar jar="target/${ant.project.name}.jar" alias="${keystore.alias}" storepass="${storepass}" 
+        <signjar jar="${build.dir}/${jar.name}.jar" alias="${keystore.alias}" storepass="${storepass}" 
         keystore="${keystore.path}" digestalg="MD5" />
     </target>
 
     <target name="fun" if="fun" unless="fun.done">
         <sound>
-            <success source="povezlo.wav"/>
-            <fail source="misha.wav"/>
+            <success source="${music.success}"/>
+            <fail source="${music.failure}"/>
         </sound>
         <property name="fun.done" value="true"/>
     </target>
@@ -65,7 +64,7 @@
         <javac srcdir="${test.dir}/java"  includeantruntime="false" 
             destdir="${build.dir}/tests">
             <classpath>
-                <pathelement location="${build.dir}/${ant.project.name}.jar"/>
+                <pathelement location="${build.dir}/${jar.name}.jar"/>
                 <path refid="classpath" />
             </classpath>
         </javac>
@@ -78,7 +77,7 @@
             <classpath refid="classpath" />
             <classpath>
                 <pathelement location="${build.dir}/tests"/>
-                <pathelement location="${build.dir}/${ant.project.name}.jar" />
+                <pathelement location="${build.dir}/${jar.name}.jar" />
             </classpath>
     
             <testclasses outputDir="${build.dir}/reports">
@@ -89,7 +88,38 @@
     </target>
 
     <target name="alt">
-        
+        <delete dir="${alt.source.dir}" />
+        <mkdir dir="${alt.source.dir}" />
+        <copy todir="${alt.source.dir}/java">
+            <fileset dir="${source.dir}/java" />
+            <globmapper from="*.java" to="*Alt.java"/>
+        </copy>
+
+        <replace dir="${alt.source.dir}/java" token="Main" value="MainAlt" />
+        <replace dir="${alt.source.dir}/java" token="PointDataDAO" value="PointDataDAOAlt" />
+        <replace dir="${alt.source.dir}/java" token="TimeBean" value="TimeBeanAlt" />
+        <replace dir="${alt.source.dir}/java" token="XCordValidator" value="XCordValidatorAlt" />
+        <replace dir="${alt.source.dir}/java" token="YCordValidator" value="YCordValidatorAlt" />
+        <replace dir="${alt.source.dir}/java" token="DataBaseConnection" value="DataBaseConnectionAlt" />
+        <replaceregexp match="(\W)PointData(\W)" replace="\1PointDataAlt\2" flags="g">
+            <fileset dir="${alt.source.dir}/java"/>
+        </replaceregexp>
+
+        <replaceregexp match="(\W)r(\W)" replace="\1radius\2" flags="g" >
+            <fileset dir="${alt.source.dir}/java"/>
+        </replaceregexp>
+
+        <replaceregexp match="(\W)odt(\W)" replace="\1offsetDateTime\2" flags="g" >
+            <fileset dir="${alt.source.dir}/java"/>
+        </replaceregexp>
+
+        <antcall target="build">
+            <param name="source.dir" value="${alt.source.dir}" />
+            <param name="jar.name" value="${jar.name}Alt" />
+            <param name="main.class" value="${main.class}Alt" />
+            <param name="build.dir" value="${build.dir}/alt" />
+        </antcall>
+
     </target>
 
 </project>
