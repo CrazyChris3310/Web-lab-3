@@ -1,0 +1,17 @@
+<ivy-module version="2.0">
+    <info organisation="com.danil" module="jsf-lab"/>
+    <dependencies>
+        <dependency org="com.sun.faces" name="jsf-api" rev="2.2.20"/>
+        <dependency org="com.sun.faces" name="jsf-impl" rev="2.2.20"/>
+        <dependency org="javax.servlet" name="javax.servlet-api" rev="4.0.1"/>
+        <dependency org="org.primefaces" name="primefaces" rev="11.0.0"/>
+        <dependency org="javax.servlet.jsp.jstl" name="jstl-api" rev="1.2"/>
+        <dependency org="org.postgresql" name="postgresql" rev="42.3.3"/>
+        <dependency org="com.oracle.database.jdbc" name="ojdbc8" rev="21.5.0.0"/>
+        <dependency org="org.junit.platform" name="junit-platform-commons" rev="1.8.2"/>
+        <dependency org="org.junit.platform" name="junit-platform-engine" rev="1.8.2"/>
+        <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.8.2"/>
+        <dependency org="org.mockito" name="mockito-core" rev="4.4.0"/>
+
+    </dependencies>
+</ivy-module>
