@@ -1,0 +1,7 @@
+source.dir=src/main
+build.dir=target
+test.dir=src/test
+keystore.path=
+storepass=
+keystore.alias=
+fun=true

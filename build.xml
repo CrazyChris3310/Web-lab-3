@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="JSFLab" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant" basedir=".">
 
-    <property file="build.properties" />
-    <property name="fun" value="true" />
+    <property file="build.properties.dev" />
 
     <path id="classpath">
-        <fileset dir="${basedir}/">
-            <include name="lib/*.jar" />
-        </fileset>
-    </path>
-
-    <path id="test-classpath">
         <fileset dir="${basedir}/">
             <include name="lib/*.jar" />
         </fileset>
@@ -50,8 +43,13 @@
         <delete dir="target"/>
     </target>
 
-    <target name="doc">
-        <javadoc sourcepath="${source.dir}/java" classpathref="classpath" destdir="${build.dir}/doc" />
+    <target name="doc" depends="build">
+        <javadoc sourcepath="${source.dir}/java" classpathref="classpath" destdir="${build.dir}/javadoc" />
+        <zip destfile="${build.dir}/${ant.project.name}.jar" update="true" basedir="${build.dir}" includes="javadoc/*" />
+        <signjar jar="target/${ant.project.name}.jar" alias="${keystore.alias}" storepass="${storepass}" 
+        keystore="${keystore.path}" digestalg="SHA-1" />
+        <signjar jar="target/${ant.project.name}.jar" alias="${keystore.alias}" storepass="${storepass}" 
+        keystore="${keystore.path}" digestalg="MD5" />
     </target>
 
     <target name="fun" if="fun" unless="fun.done">
@@ -88,6 +86,10 @@
                 <listener type="legacy-plain" sendSysOut="true" />
             </testclasses>
         </junitlauncher>
+    </target>
+
+    <target name="alt">
+        
     </target>
 
 </project>

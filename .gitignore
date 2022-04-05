@@ -2,6 +2,7 @@
 
 target
 *.iml
+build.properties.dev
 
 lib
 
