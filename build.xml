@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="JSFLab" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant" basedir=".">
 
-    <property file="build.properties.dev" />
+    <property file="build.properties.prod" />
 
      <property name="ivy.install.version" value="2.5.0"/>
     <condition property="ivy.home" value="${env.IVY_HOME}">

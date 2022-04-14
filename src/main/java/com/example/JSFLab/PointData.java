@@ -88,7 +88,7 @@ public class PointData {
     if (x > 0) {
       if (y >= 0 && y <= r / 2 && x <= r) { match = "Да"; } else { match = "Нет"; }
     } else {
-      if (y >= 0 && y <= x + 4) { match = "Да"; } else if (y <= 0 && x * x + y * y <= r * r) {
+      if (y >= 0 && y <= x + r) { match = "Да"; } else if (y <= 0 && x * x + y * y <= r * r) {
         match = "Да";
       } else { match = "Нет"; }
     }
