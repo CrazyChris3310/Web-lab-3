@@ -54,10 +54,10 @@
    </target>
 
     <target name="build" depends="compile, fun">
-         <manifest file="${build.dir}/MANIFEST.MF" mode="update">
+         <manifest file="${source.dir}/resources/META-INF/MANIFEST.MF" mode="update">
                 <attribute name="Main-Class" value="${main.class}" />
         </manifest>
-        <jar destfile="${build.dir}/${jar.name}.jar" basedir="${build.dir}/classes" manifest="${build.dir}/META-INF/MANIFEST.MF">
+        <jar destfile="${build.dir}/${jar.name}.jar" basedir="${build.dir}/classes" manifest="${source.dir}/resources/META-INF/MANIFEST.MF">
             <fileset dir="${basedir}/">
                 <include name="lib/*.jar"/>
             </fileset>
@@ -75,14 +75,14 @@
         <checksum algorithm="MD5" totalproperty="md.hash" todir="${build.dir}/hashes">
             <fileset dir="${source.dir}/java"/>
         </checksum>
-        <echo file="${build.dir}/MANIFEST.MF" message="MD5: ${md.hash}${line.separator}" append="true" />
+        <echo file="${source.dir}/resources/META-INF/MANIFEST.M" message="MD5: ${md.hash}${line.separator}" append="true" />
         <checksum algorithm="SHA-1" totalproperty="sha.hash" todir="${build.dir}/hashes">
             <fileset dir="${source.dir}/java"/>
         </checksum>
-        <echo file="${build.dir}/MANIFEST.MF" message="SHA-1: ${sha.hash}" append="true" />
+        <echo file="${source.dir}/resources/META-INF/MANIFEST.M" message="SHA-1: ${sha.hash}" append="true" />
         <javadoc sourcepath="${source.dir}/java" classpathref="classpath" destdir="${build.dir}/javadoc" />
         <zip destfile="${build.dir}/${jar.name}.jar" update="true" 
-        basedir="${build.dir}" includes="javadoc/* ${build.dir}/META-INF/MANIFEST.MF" />
+        basedir="${build.dir}" includes="javadoc/* ${source.dir}/resources/META-INF/MANIFEST.MF" />
     </target>
 
     <target name="fun" if="fun" unless="fun.done">
